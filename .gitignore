@@ -1,0 +1,12 @@
+/vervose.log
+/local.properties
+/Kradle 1.0.jar
+/build
+/app/build
+/out
+/.kotlin
+/.gradle
+config.txt
+repo.json
+verbose.log
+.idea
