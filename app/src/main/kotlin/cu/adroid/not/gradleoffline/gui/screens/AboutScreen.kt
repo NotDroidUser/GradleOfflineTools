@@ -33,7 +33,6 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withLink
@@ -45,17 +44,13 @@ import cu.adroid.not.gradleoffline.gui.padding16
 import cu.adroid.not.gradleoffline.gui.padding4
 import cu.adroid.not.gradleoffline.gui.padding8
 import cu.adroid.not.gradleoffline.gui.utils.Screen
-import cu.adroid.not.gradleoffline.gui.utils.border
 import java.util.Calendar
-import java.util.Date
 import org.jetbrains.skia.Image as SkiaImage
 
 @Composable
 fun AboutScreen(){
   
   val aboutScreen= remember { mutableStateOf(Screen.Kradle) }
-  val animateAutor= remember { mutableStateOf(false) }
-  val animateToolset = remember {  }
   val backColor = Color(0xFF0d1117)
   val colors = darkColors()
   val linkStyles = TextLinkStyles(style = SpanStyle(color = colors.onBackground, textDecoration = TextDecoration.Underline),
@@ -104,8 +99,7 @@ fun AboutScreen(){
               Text(text="ools", fontFamily = FontFamily.SansSerif, fontSize = 20.sp ,color= colors.onBackground)
             }
             Text(buildAnnotatedString{
-              append("This program is licensed under")
-              withLink(LinkAnnotation)
+              append("This program is licensed under GPLv3")
             })
           }
           Column(Modifier.border(width = 1.dp,Color(0xFF3f444f)).width(1.dp).fillMaxHeight()) {  }
