@@ -31,7 +31,7 @@ jobs:
         uses: actions/upload-artifact@v5
         with:
           name: ${{ 'GradleOfflineTools-windows.jar' }}
-          path: ${{ 'app/build/libs/app-[\\.1-9]*.jar' }}
+          path: ${{ 'app/build/libs/app-[\\.1-9]*-all.jar' }}
           if-no-files-found: error
           retention-days: 1
 
@@ -57,35 +57,35 @@ jobs:
         uses: actions/upload-artifact@v5
         with:
           name: ${{ 'GradleOfflineTools-mac.jar' }}
-          path: ${{ 'app/build/libs/app-[\\.1-9]*.jar' }}
+          path: ${{ 'app/build/libs/app-[\\.1-9]*-all.jar' }}
           if-no-files-found: error
           retention-days: 1
           
-#  build-release-ubuntu:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v5
-#      - name: Set up JDK
-#        uses: actions/setup-java@v5
-#        with:
-#          distribution: temurin
-#          java-version: 21
-#
-#      - name: Setup Gradle
-#        uses: gradle/actions/setup-gradle@v5
-#
-#      - name: Build a simple jar with all dependencies
-#        run: ./gradlew shadowJar
-#
-#      - run: ls ./app/build/libs
-#
-#      - name: Save JRE bundle artifact
-#        uses: actions/upload-artifact@v5
-#        with:
-#          name: ${{ 'GradleOfflineTools-linux.jar' }}
-#          path: ${{ 'app/build/libs/app-[\\.1-9]*.jar' }}
-#          if-no-files-found: error
-#          retention-days: 1
+  build-release-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Set up JDK
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v5
+
+      - name: Build a simple jar with all dependencies
+        run: ./gradlew shadowJar
+
+      - run: ls ./app/build/libs
+
+      - name: Save JRE bundle artifact
+        uses: actions/upload-artifact@v5
+        with:
+          name: ${{ 'GradleOfflineTools-linux.jar' }}
+          path: ${{ 'app/build/libs/app-[\\.1-9]*-all.jar' }}
+          if-no-files-found: error
+          retention-days: 1
     
   release:
     needs: [build-release-win, build-release-mac]
