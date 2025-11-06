@@ -15,7 +15,9 @@ version = "1.1.3"
 var kotlinVersion = "2.1.20"
 
 repositories {
-    //mavenCentral()
+    mavenCentral()
+    gradlePluginPortal()
+    google()
 }
 
 dependencies {
