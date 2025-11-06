@@ -27,10 +27,18 @@ jobs:
       - name: Build a simple jar with all dependencies
         run: ./gradlew shadowJar
 
+      - name: Save JRE bundle artifact
+        uses: actions/upload-artifact@v5
+        with:
+          name: ${{ 'GradleOfflineTools.jar' }}
+          path: ${{ 'app/build/libs/app-[\\.1-9]*.jar' }}
+          if-no-files-found: error
+          retention-days: 1
+
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
           name: GradleOfflineTools
           draft: true
           fail_on_unmatched_files: true
-          files: build/libs/app-[\\.1-9]*.jar
+          files: app/build/libs/app-[\\.1-9]*.jar
