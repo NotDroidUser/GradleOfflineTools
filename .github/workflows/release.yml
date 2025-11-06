@@ -30,7 +30,7 @@ jobs:
         uses: actions/upload-artifact@v5
         with:
           name: ${{ 'GradleOfflineTools-windows.jar' }}
-          path: ${{ 'app/build/libs/app-[\.1-9]*(?:-all)?.jar' }}
+          path: ${{ 'app/build/libs/app-[\\.1-9]*(?:-all)?.jar' }}
           if-no-files-found: error
           retention-days: 1
 
@@ -54,7 +54,7 @@ jobs:
         uses: actions/upload-artifact@v5
         with:
           name: ${{ 'GradleOfflineTools-mac.jar' }}
-          path: ${{ 'app/build/libs/app-[\.1-9]*(?:-all)?.jar' }}
+          path: ${{ 'app/build/libs/app-[\\.1-9]*(?:-all)?.jar' }}
           if-no-files-found: error
           retention-days: 1
           
@@ -78,7 +78,7 @@ jobs:
         uses: actions/upload-artifact@v5
         with:
           name: ${{ 'GradleOfflineTools-linux.jar' }}
-          path: ${{ 'app/build/libs/app-[\.1-9]*(?:-all)?.jar' }}
+          path: ${{ 'app/build/libs/app-[\\.1-9]*(?:-all)?.jar' }}
           if-no-files-found: error
           retention-days: 1
     
