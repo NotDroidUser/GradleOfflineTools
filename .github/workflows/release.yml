@@ -37,8 +37,8 @@ jobs:
       - name: Save JRE bundle artifact
         uses: actions/upload-artifact@v5
         with:
-          name: ${{ format('Gradle Offline Tools-linux-x64-{0}.jar',env.GOM_VERSION) }}
-          path: ${{ format('app/build/compose/jars/Gradle Offline Tools-linux-x64-{0}.jar',env.GOM_VERSION) }}
+          name: ${{ format('Gradle Offline Tools-windows-x64-{0}.jar',env.GOM_VERSION) }}
+          path: ${{ format('app/build/compose/jars/Gradle Offline Tools-windows-x64-{0}.jar',env.GOM_VERSION) }}
           if-no-files-found: error
           retention-days: 1
 
