@@ -37,8 +37,8 @@ jobs:
       - name: Save JRE bundle artifact
         uses: actions/upload-artifact@v5
         with:
-          name: ${{ format('Gradle Offline Tools-windows-x64-{0}.jar',env.GOM_VERSION) }}
-          path: ${{ format('app/build/compose/jars/Gradle Offline Tools-windows-x64-{0}.jar',env.GOM_VERSION) }}
+          name: ${{ format('Gradle Offline Manager-windows-x64-{0}.jar',env.GOM_VERSION) }}
+          path: ${{ format('app/build/compose/jars/Gradle Offline Manager-windows-x64-{0}.jar',env.GOM_VERSION) }}
           if-no-files-found: error
           retention-days: 1
 
@@ -71,8 +71,8 @@ jobs:
       - name: Save JRE bundle artifact
         uses: actions/upload-artifact@v5
         with:
-          name: ${{ format('Gradle Offline Tools-macos-x64-{0}.jar',env.GOM_VERSION) }}
-          path: ${{ format('app/build/compose/jars/Gradle Offline Tools-macos-x64-{0}.jar',env.GOM_VERSION) }}
+          name: ${{ format('Gradle Offline Manager-macos-x64-{0}.jar',env.GOM_VERSION) }}
+          path: ${{ format('app/build/compose/jars/Gradle Offline Manager-macos-x64-{0}.jar',env.GOM_VERSION) }}
           if-no-files-found: error
           retention-days: 1
           
@@ -105,8 +105,8 @@ jobs:
       - name: Save JRE bundle artifact
         uses: actions/upload-artifact@v5
         with:
-          name: ${{ format('Gradle Offline Tools-linux-x64-{0}.jar',env.GOM_VERSION) }}
-          path: ${{ format('app/build/compose/jars/Gradle Offline Tools-linux-x64-{0}.jar',env.GOM_VERSION) }}
+          name: ${{ format('Gradle Offline Manager-linux-x64-{0}.jar',env.GOM_VERSION) }}
+          path: ${{ format('app/build/compose/jars/Gradle Offline Manager-linux-x64-{0}.jar',env.GOM_VERSION) }}
           if-no-files-found: error
           retention-days: 1
     
@@ -122,7 +122,7 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          name: GradleOfflineTools
+          name: Gradle Offline Manager
           draft: true
           fail_on_unmatched_files: true
-          files: GradleOfflineTools*.jar
+          files: Gradle Offline Manager*.jar
