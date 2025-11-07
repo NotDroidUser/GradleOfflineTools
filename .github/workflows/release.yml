@@ -23,20 +23,28 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v5
 
-      - name: Build a simple jar with all dependencies
-        run: ./gradlew shadowJar
+      - name: Sets GOM version
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const gomVersion = context.ref.split('/').pop().substring(1)
+            core.exportVariable('GOM_VERSION', gomVersion);
 
-      - run: ls ./app/build/libs
+      - name: Build a simple jar with all dependencies
+        run: ./gradlew packageUberJarForCurrentOS
+
+      - run: ls ./app/build/compose/jars/
       - name: Save JRE bundle artifact
         uses: actions/upload-artifact@v5
         with:
-          name: ${{ 'GradleOfflineTools-windows.jar' }}
-          path: ${{ './app/build/libs/app-[\\.1-9]*-all.jar' }}
+          name: ${{ format('Gradle Offline Tools-linux-x64-{0}.jar',env.GOM_VERSION) }}
+          path: ${{ format('app/build/compose/jars/Gradle Offline Tools-linux-x64-{0}.jar',env.GOM_VERSION) }}
           if-no-files-found: error
           retention-days: 1
 
   build-release-mac:
-    runs-on: mac-latest 
+    needs: [build-release-win, build-release-ubuntu]
+    runs-on: mac-latest-large
     steps:
       - uses: actions/checkout@v5
       - name: Set up JDK
@@ -48,20 +56,28 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v5
 
-      - name: Build a simple jar with all dependencies
-        run: ./gradlew shadowJar
+      - name: Sets GOM version
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const gomVersion = context.ref.split('/').pop().substring(1)
+            core.exportVariable('GOM_VERSION', gomVersion);
 
-      - run: ls ./app/build/libs
+      - name: Build a simple jar with all dependencies
+        run: ./gradlew packageUberJarForCurrentOS
+
+      - run: ls ./app/build/compose/jars/
 
       - name: Save JRE bundle artifact
         uses: actions/upload-artifact@v5
         with:
-          name: ${{ 'GradleOfflineTools-mac.jar' }}
-          path: ${{ './app/build/libs/app-[\\.1-9]*-all.jar' }}
+          name: ${{ format('Gradle Offline Tools-macos-x64-{0}.jar',env.GOM_VERSION) }}
+          path: ${{ format('app/build/compose/jars/Gradle Offline Tools-macos-x64-{0}.jar',env.GOM_VERSION) }}
           if-no-files-found: error
           retention-days: 1
           
   build-release-ubuntu:
+    needs: build-release-win
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -74,16 +90,23 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v5
 
+      - name: Sets GOM version
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const gomVersion = context.ref.split('/').pop().substring(1)
+            core.exportVariable('GOM_VERSION', gomVersion);
+
       - name: Build a simple jar with all dependencies
-        run: ./gradlew shadowJar
+        run: ./gradlew packageUberJarForCurrentOS
 
       - run: ls ./app/build/libs
 
       - name: Save JRE bundle artifact
         uses: actions/upload-artifact@v5
         with:
-          name: ${{ 'GradleOfflineTools-linux.jar' }}
-          path: ${{ './app/build/libs/app-[\\.1-9]*-all.jar' }}
+          name: ${{ format('Gradle Offline Tools-linux-x64-{0}.jar',env.GOM_VERSION) }}
+          path: ${{ format('app/build/compose/jars/Gradle Offline Tools-linux-x64-{0}.jar',env.GOM_VERSION) }}
           if-no-files-found: error
           retention-days: 1
     
