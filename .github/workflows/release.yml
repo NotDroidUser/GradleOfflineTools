@@ -42,39 +42,39 @@ jobs:
           if-no-files-found: error
           retention-days: 1
 
-  build-release-mac:
-    needs: [build-release-win, build-release-ubuntu]
-    runs-on: mac-latest-large
-    steps:
-      - uses: actions/checkout@v5
-      - name: Set up JDK
-        uses: actions/setup-java@v5
-        with:
-          distribution: temurin
-          java-version: 21
-          
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v5
-
-      - name: Sets GOM version
-        uses: actions/github-script@v8
-        with:
-          script: |
-            const gomVersion = context.ref.split('/').pop().substring(1)
-            core.exportVariable('GOM_VERSION', gomVersion);
-
-      - name: Build a simple jar with all dependencies
-        run: ./gradlew packageUberJarForCurrentOS
-
-      - run: ls ./app/build/compose/jars/
-
-      - name: Save JRE bundle artifact
-        uses: actions/upload-artifact@v5
-        with:
-          name: ${{ format('Gradle Offline Manager-macos-x64-{0}.jar',env.GOM_VERSION) }}
-          path: ${{ format('app/build/compose/jars/Gradle Offline Manager-macos-x64-{0}.jar',env.GOM_VERSION) }}
-          if-no-files-found: error
-          retention-days: 1
+#   build-release-mac:
+#     needs: [build-release-win, build-release-ubuntu]
+#     runs-on: mac-latest-large
+#     steps:
+#       - uses: actions/checkout@v5
+#       - name: Set up JDK
+#         uses: actions/setup-java@v5
+#         with:
+#           distribution: temurin
+#           java-version: 21
+#
+#       - name: Setup Gradle
+#         uses: gradle/actions/setup-gradle@v5
+#
+#       - name: Sets GOM version
+#         uses: actions/github-script@v8
+#         with:
+#           script: |
+#             const gomVersion = context.ref.split('/').pop().substring(1)
+#             core.exportVariable('GOM_VERSION', gomVersion);
+#
+#       - name: Build a simple jar with all dependencies
+#         run: ./gradlew packageUberJarForCurrentOS
+#
+#       - run: ls ./app/build/compose/jars/
+#
+#       - name: Save JRE bundle artifact
+#         uses: actions/upload-artifact@v5
+#         with:
+#           name: ${{ format('Gradle Offline Manager-macos-x64-{0}.jar',env.GOM_VERSION) }}
+#           path: ${{ format('app/build/compose/jars/Gradle Offline Manager-macos-x64-{0}.jar',env.GOM_VERSION) }}
+#           if-no-files-found: error
+#           retention-days: 1
           
   build-release-ubuntu:
     needs: build-release-win
@@ -111,7 +111,7 @@ jobs:
           retention-days: 1
     
   release:
-    needs: [build-release-win, build-release-mac,build-release-ubuntu]
+    needs: [build-release-win,build-release-ubuntu]
     runs-on: ubuntu-latest
     steps:
       - name: Download artifacts
