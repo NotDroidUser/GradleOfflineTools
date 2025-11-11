@@ -37,7 +37,7 @@ jobs:
       - name: Save JRE bundle artifact
         uses: actions/upload-artifact@v5
         with:
-          name: ${{ format('Gradle-Offline-Tools-windows-x64-{0}.jar',env.GOM_VERSION) }}
+          name: ${{ format('gradle-offline-tools-windows-x64-{0}.jar',env.GOM_VERSION) }}
           path: ${{ format('app/build/compose/jars/Gradle-Offline-Tools-windows-x64-{0}.jar',env.GOM_VERSION) }}
           if-no-files-found: error
           retention-days: 1
@@ -105,7 +105,7 @@ jobs:
       - name: Save JRE bundle artifact
         uses: actions/upload-artifact@v5
         with:
-          name: ${{ format('Gradle-Offline-Tools-linux-x64-{0}.jar',env.GOM_VERSION) }}
+          name: ${{ format('gradle-offline-tools-linux-x64-{0}.jar',env.GOM_VERSION) }}
           path: ${{ format('app/build/compose/jars/Gradle-Offline-Tools-linux-x64-{0}.jar',env.GOM_VERSION) }}
           if-no-files-found: error
           retention-days: 1
@@ -126,7 +126,7 @@ jobs:
 
       - run: |
           mkdir release
-          mv Gradle-*.jar ./release
+          mv gradle-*.jar ./release
           ls -l ./release
       
       - name: Release
@@ -135,5 +135,5 @@ jobs:
           name: ${{ env.GOM_VERSION }}
           draft: true
           fail_on_unmatched_files: true
-          files: release/Gradle-*.jar
+          files: release/gradle-*.jar
 
