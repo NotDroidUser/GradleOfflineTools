@@ -116,13 +116,22 @@ jobs:
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v6
-      
+
+      - name: Sets GOM version
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const gomVersion = context.ref.split('/').pop().substring(1)
+            core.exportVariable('GOM_VERSION', gomVersion);
+
       - run: ls -l
       
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          name: Gradle Offline Manager
+          name: ${{ env.GOM_VERSION }}
           draft: true
           fail_on_unmatched_files: true
-          files: Gradle-Offline-Tools*.jar
+          files: |
+            ${{ format('Gradle-Offline-Tools-linux-x64-{0}.jar',env.GOM_VERSION) }}
+            ${{ format('aGradle-Offline-Tools-windows-x64-{0}.jar',env.GOM_VERSION) }}
