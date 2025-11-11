@@ -6,7 +6,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 plugins {
     id("org.jetbrains.compose")
     kotlin("plugin.compose")
-    id("com.gradleup.shadow") version "9.2.2"
     kotlin("jvm")
 }
 
@@ -38,9 +37,13 @@ dependencies {
 tasks.apply{
     withType<KotlinJvmCompile>().configureEach {
         compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_21)
+            jvmTarget.set(JvmTarget.JVM_11)
             freeCompilerArgs.add("-opt-in=kotlin.RequiresOptIn")
         }
+    }
+    withType<JavaCompile>().configureEach{
+      options.compilerArgs.add("-opt-in=kotlin.RequiresOptIn")
+      sourceCompatibility= JavaVersion.toVersion("11").toString()
     }
     withType<Jar> {
         manifest{
@@ -57,7 +60,7 @@ compose.desktop {
         mainClass = "cu.adroid.not.gradleoffline.MainKt"
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "Gradle Offline Manager"
+            packageName = "Gradle-Offline-Tools"
             packageVersion = "$version"
         }
     }

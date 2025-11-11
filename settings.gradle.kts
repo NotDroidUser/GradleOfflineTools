@@ -6,6 +6,6 @@ pluginManagement {
   }
 }
 
-rootProject.name = "GradleOfflineManager"
+rootProject.name = "GradleOfflineTools"
 
 include(":app")
