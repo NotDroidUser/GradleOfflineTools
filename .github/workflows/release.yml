@@ -132,6 +132,5 @@ jobs:
           name: ${{ env.GOM_VERSION }}
           draft: true
           fail_on_unmatched_files: true
-          files: |
-            ${{ format('Gradle-Offline-Tools-linux-x64-{0}.jar',env.GOM_VERSION) }}
-            ${{ format('aGradle-Offline-Tools-windows-x64-{0}.jar',env.GOM_VERSION) }}
+          files: Gradle-*.jar
+
