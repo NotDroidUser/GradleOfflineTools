@@ -124,7 +124,10 @@ jobs:
             const gomVersion = context.ref.split('/').pop().substring(1)
             core.exportVariable('GOM_VERSION', gomVersion);
 
-      - run: ls -l
+      - run: |
+          mkdir release
+          mv Gradle-*.jar ./release
+          ls -l ./release
       
       - name: Release
         uses: softprops/action-gh-release@v2
@@ -132,5 +135,5 @@ jobs:
           name: ${{ env.GOM_VERSION }}
           draft: true
           fail_on_unmatched_files: true
-          files: Gradle-*.jar
+          files: release/Gradle-*.jar
 
