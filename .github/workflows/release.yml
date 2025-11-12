@@ -136,5 +136,6 @@ jobs:
           name: ${{ env.GOM_VERSION }}
           draft: true
           fail_on_unmatched_files: true
-          files: release/got-*.jar
+          files: |
+              release/*.*
 
