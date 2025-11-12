@@ -110,25 +110,14 @@ jobs:
           if-no-files-found: error
           retention-days: 1
     
-  release:
-    needs: [build-release-win,build-release-ubuntu]
-    runs-on: ubuntu-latest
-    steps:
       - name: Download artifacts
         uses: actions/download-artifact@v6
-
-      - name: Sets GOM version
-        uses: actions/github-script@v8
-        with:
-          script: |
-            const gomVersion = context.ref.split('/').pop().substring(1)
-            core.exportVariable('GOM_VERSION', gomVersion);
 
       - run: |
           mkdir release
           mv got-*.jar ./release/
           cd release
-          ls -l ./
+          ls -l
       
       - name: Release
         uses: softprops/action-gh-release@v2
@@ -137,5 +126,5 @@ jobs:
           draft: true
           fail_on_unmatched_files: true
           files: |
-              release/*.*
+              release/got-*.jar
 
